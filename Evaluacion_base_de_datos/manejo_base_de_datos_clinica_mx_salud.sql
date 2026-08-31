@@ -1,18 +1,20 @@
 -- variables
 -- bind
+VAR b_fecha_proceso VARCHAR2
+EXEC :b_fecha_proceso:='202404';
 
 DECLARE
 -- escalares
 
--- cursor sin parametros
-CURSOR cur_num1 IS
-    SELECT *
-    FROM table;
+-- cursor sin parametros Es la tabla de atencion
+CURSOR cur_atencion IS
+    SELECT ate_id
+    FROM atencion;
 
--- cursor con parametros
-CURSOR cur_num2 IS
-    SELECT * 
-    FROM table;
+-- cursor con parametros Es la tabla de medico
+CURSOR cur_medico ()IS
+    SELECT  med_run
+    FROM medico;
 -- varray
 
 -- declaracion de exepciones
@@ -20,15 +22,15 @@ CURSOR cur_num2 IS
 -- inicio de bloque
 BEGIN
 -- truncar tablas y secuencias
-
+EXECUTE
 -- asignar valores del varray
 
 -- inicio primer loop (cursor sin parametros)
-FOR reg_num1 IN cur_num1 LOOP
+FOR reg_atencion IN cur_atencion LOOP
 -- creacion y asignacion de variable totalizadora
 
 -- inicio segundo loop (cursor con parametros)
-    FOR reg_num2 IN cur_num2()LOOP
+    FOR reg_medico IN cur_medico()LOOP
 -- calculos
 
 -- uso de exepciones
