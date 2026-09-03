@@ -23,13 +23,18 @@ CURSOR cur_atencion(p_med_run NUMBER)IS
     FROM atencion
     WHERE med_run = p_med_run;
 -- varray
+TYPE tipo_varray_porcentaje IS VARRAY(5) OF NUMBER(3,2);
 
+varray_mora tipo_varray_porcentaje;
 -- declaracion de exepciones
 
 -- inicio de bloque
 BEGIN
 -- truncar tablas y secuencias
-EXECUTE
+EXECUTE IMMEDIATE 'TRUNCATE TABLE RESUMEN_ATENMEDICAS_MENSUALES';
+EXECUTE IMMEDIATE 'TRUNCATE TABLE DETALLE_ATENMEDICAS_MENSUALES';
+EXECUTE IMMEDIATE 'TRUNCATE TABLE ERRORES_PROCESO';
+-- DROP 
 -- asignar valores del varray
 
 -- inicio primer loop (cursor sin parametros)
