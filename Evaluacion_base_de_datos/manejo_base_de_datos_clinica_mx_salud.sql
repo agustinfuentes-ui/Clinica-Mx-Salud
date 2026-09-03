@@ -7,14 +7,21 @@ DECLARE
 -- escalares
 
 -- cursor sin parametros Es la tabla de atencion
-CURSOR cur_atencion IS
-    SELECT ate_id
-    FROM atencion;
+CURSOR cur_medico IS
+    SELECT med_run || dv_run AS run_medico,
+           pnombre || snombre || apaterno || amaterno AS nombre,
+           esp_id AS id_especialiodad,
+           car_id AS id_cargo
+    FROM  medico;
 
 -- cursor con parametros Es la tabla de medico
-CURSOR cur_medico ()IS
-    SELECT  med_run
-    FROM medico;
+CURSOR cur_atencion(p_med_run NUMBER)IS
+    SELECT atencion.ate_id,
+           fecha_atencion,
+           med_run,
+           pac_run
+    FROM atencion
+    WHERE med_run = p_med_run;
 -- varray
 
 -- declaracion de exepciones
