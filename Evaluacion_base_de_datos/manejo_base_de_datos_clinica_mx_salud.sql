@@ -29,16 +29,17 @@ CURSOR cur_atencion(p_med_run NUMBER)IS
 -- inicio de bloque
 BEGIN
 -- truncar tablas y secuencias
+EXECUTE
 -- asignar valores del varray
 
 -- inicio primer loop (cursor sin parametros)
 FOR reg_atencion IN cur_atencion LOOP
 -- creacion y asignacion de variable totalizadora
-    DBMS_OUTPUT.PUT_LINE('ATENCION: ' || reg_atencion.ate_id);
+
 -- inicio segundo loop (cursor con parametros)
-    FOR reg_medico IN cur_medico(reg_atencion.ate_id)LOOP
+    FOR reg_medico IN cur_medico()LOOP
 -- calculos
-    DBMS_OUTPUT.PUT_LINE('   MEDICO: ' || reg_medico.run_medico);
+
 -- uso de exepciones
 
 -- insercion de detalle
