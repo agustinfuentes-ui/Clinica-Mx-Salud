@@ -112,15 +112,12 @@ v_tot_sobrep_obes:=0;
         INTO v_sitema_salud
         FROM tipo_salud ti_sal JOIN salud sal
                         ON (ti_sal.TIPO_SAL_ID=sal.TIPO_SAL_ID)
-                        JOIN paciente pac
-                        ON (sal.sal_id=pac.sal_id)
-        WHERE pac.sal_id = reg_atencion.sal_id;
+        WHERE sal.sal_id = reg_atencion.sal_id;
         -- Obtencion descripcion sitema salud
         SELECT sal.descripcion
         INTO v_decripcion_sistema_salud
-        FROM salud sal JOIN paciente pac
-                        ON (sal.sal_id=pac.sal_id)
-        WHERE pac.sal_id = reg_atencion.sal_id;
+        FROM salud sal 
+        WHERE sal.sal_id = reg_atencion.sal_id;
         -- Obtencion valor pagar
         SELECT pag_ate.valor_a_pagar
         INTO v_valor_a_pagar
@@ -151,8 +148,8 @@ v_tot_sobrep_obes:=0;
             reg_atencion.costo,
             v_valor_a_pagar,
             v_valor_pagado_real,
-            v_diferencia);        
-        COMMIT;
+            v_diferencia);
+            COMMIT;
         DBMS_OUTPUT.PUT_LINE(reg_atencion.ate_id);
 -- calculo de totalizadoras
         IF reg_medico.id_unidad = 100 THEN
@@ -164,7 +161,7 @@ v_tot_sobrep_obes:=0;
         ELSIF reg_medico.id_unidad = 400 THEN
             v_tot_adulto:= v_tot_adulto + 1;
         ELSIF reg_medico.id_unidad = 500 THEN
-        v_tot_infantil:= v_tot_infantil + 1;
+            v_tot_infantil:= v_tot_infantil + 1;
         ELSIF reg_medico.id_unidad = 600 THEN
             v_tot_maternidad:= v_tot_maternidad + 1;
         ELSIF reg_medico.id_unidad = 700 THEN
@@ -178,21 +175,22 @@ v_tot_sobrep_obes:=0;
     -- fin del segundo loop
     END LOOP;
 -- inserto en la tabla resumen
+END LOOP;
 INSERT INTO RESUMEN_ATENMEDICAS_MENSUALES
-VALUES(SUBSTR(:b_fecha_proceso,5,2)||'/'||SUBSTR(:b_fecha_proceso,1,4),
- v_tot_ambul,
- v_tot_urgen,
- v_tot_pacritico,
- v_tot_adulto,
- v_tot_infantil,
- v_tot_maternidad,
- v_tot_cirugia,
- v_tot_cirugia_plast,
- v_tot_sobrep_obes,
- SYSDATE);
+VALUES(:b_fecha_proceso,
+    v_tot_ambul,
+    v_tot_urgen,
+    v_tot_pacritico,
+    v_tot_adulto,
+    v_tot_infantil,
+    v_tot_maternidad,
+    v_tot_cirugia,
+    v_tot_cirugia_plast,
+    v_tot_sobrep_obes,
+    SYSDATE);
 COMMIT;
 -- fin primer loop
-END LOOP;
+
 -- fin de bloque
 END;
 
