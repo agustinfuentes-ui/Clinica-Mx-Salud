@@ -460,7 +460,7 @@ BEGIN
                     WHEN 'Maternidad' THEN v_tot_maternidad := v_tot_maternidad + 1;
                     WHEN 'Cirugia' THEN v_tot_cirugia := v_tot_cirugia + 1;
                     WHEN 'Cirugia Plastica' THEN v_tot_cirugia_plast := v_tot_cirugia_plast + 1;
-                    WHEN 'Sobrepreso y Obesidad' THEN v_tot_sobrep_obes := v_tot_sobrep_obes + 1;
+                    WHEN 'Sobrepeso y Obesidad' THEN v_tot_sobrep_obes := v_tot_sobrep_obes + 1;
                     ELSE NULL;
                 END CASE;
 
